@@ -2,12 +2,33 @@
 # RxDB Changelog
 
 <!-- CHANGELOG NEWEST -->
-- FIX run the unit tests for the migration plugin on all storages.
+
 <!-- ADD new changes here! -->
 
 <!-- /CHANGELOG NEWEST -->
 
 <!-- RELEASE BELOW -->
+
+### 13.13.6 (5 December 2022)
+
+- REFACTOR the remote RxStorage for electron ipcRenderer
+
+### 13.13.5 (2 December 2022)
+
+### 13.13.4 (2 December 2022)
+
+### 13.13.3 (2 December 2022)
+
+### 13.13.2 (30 November 2022)
+
+### 13.13.1 (30 November 2022)
+
+- UPDATE `isomorphic-ws` to `5.0.0`
+
+### 13.13.0 (30 November 2022)
+
+- ADD [Firestore Replication Plugin](https://rxdb.info/replication-firestore.html)
+- FIX run the unit tests for the migration plugin on all storages.
 
 ### 13.12.0 (29 November 2022)
 

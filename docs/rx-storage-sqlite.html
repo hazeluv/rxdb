@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>RxStorage SQLite · RxDB - Documentation</title>
+        <title>RxStorage SQLite · RxDB - JavaScript Database</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -91,7 +91,7 @@
     
         
         <li>
-            <a href="/" target="_blank" class="custom-link">&#x2190; Home </a>
+            <a href="/" target="_blank" class="custom-link">RxDB</a>
         </li>
     
         
@@ -1705,7 +1705,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.20.5" data-path="replication-couchdb.html">
+        <li class="chapter " data-level="1.20.5" data-path="replication-firestore.html">
+            
+                <a href="replication-firestore.html">
+            
+                    
+                    Replication Firestore
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.6" data-path="replication-couchdb.html">
             
                 <a href="replication-couchdb.html">
             
@@ -2226,9 +2239,10 @@
 <ul>
 <li>It is part of <a href="premium.md">RxDB Premium</a></li>
 <li>At the moment it is not possible to use regex queries with the SQLite RxStorage.</li>
-<li>Requires at least SQLite version <code>3.38.0</code> (2022-02-22).</li>
 </ul>
-<h2 id="usage-with-nodejs-sqlite">Usage (with Node.js SQLite)</h2>
+<h3 id="requirements">Requirements</h3>
+<p>The SQlite RxStorage works on SQLite libraries that use SQLite in version <code>3.38.0</code> or higher, because it uses the <a href="https://www.sqlite.org/json1.html" target="_blank">SQLite JSON</a> methods like <code>JSON_EXTRACT</code>. If you get an error like <code>[Error: no such function: JSON_EXTRACT (code 1 SQLITE_ERROR[1])</code>, you might have a too old version of SQLite.</p>
+<h2 id="usage-with-nodejs-sqlite">Usage with <strong>Node.js SQLite</strong></h2>
 <pre><code class="lang-ts"><span class="hljs-keyword">import</span> {
     createRxDatabase
 } from <span class="hljs-string">&apos;rxdb&apos;</span>;
@@ -2258,9 +2272,32 @@
     })
 });
 </code></pre>
-<h2 id="usage-with-sqlite-capacitor">Usage (with SQLite Capacitor)</h2>
+<h2 id="usage-with-react-native">Usage with <strong>React Native</strong></h2>
 <ol>
-<li>Install the <a href="https://github.com/capacitor-community/sqlite" target="_blank">sqlite capacitor plugin</a></li>
+<li>Install the <a href="https://www.npmjs.com/package/react-native-quick-sqlite" target="_blank">react-native-quick-sqlite npm module</a></li>
+<li>Import <code>getSQLiteBasicsQuickSQLite</code> from the SQLite plugin and use it to create a <a href="rx-database.html">RxDatabase</a>:</li>
+</ol>
+<pre><code class="lang-ts"><span class="hljs-keyword">import</span> {
+    createRxDatabase
+} from <span class="hljs-string">&apos;rxdb&apos;</span>;
+<span class="hljs-keyword">import</span> {
+    getRxStorageSQLite,
+    getSQLiteBasicsQuickSQLite
+} from <span class="hljs-string">&apos;rxdb-premium/plugins/sqlite&apos;</span>;
+<span class="hljs-keyword">import</span> { openDatabase } from <span class="hljs-string">&apos;react-native-quick-sqlite&apos;</span>;
+
+<span class="hljs-comment">// create database</span>
+<span class="hljs-keyword">const</span> myRxDatabase = await createRxDatabase({
+    name: <span class="hljs-string">&apos;exampledb&apos;</span>,
+    multiInstance: <span class="hljs-literal">false</span>, <span class="hljs-comment">// &lt;- Set multiInstance to false when using RxDB in React Native</span>
+    storage: getRxStorageSQLite({
+        sqliteBasics: getSQLiteBasicsQuickSQLite(openDatabase)
+    })
+});
+</code></pre>
+<h2 id="usage-with-sqlite-capacitor">Usage with <strong>SQLite Capacitor</strong></h2>
+<ol>
+<li>Install the <a href="https://github.com/capacitor-community/sqlite" target="_blank">sqlite capacitor npm module</a></li>
 <li>Add the iOS database location to your capacitor config</li>
 </ol>
 <pre><code class="lang-json">{
@@ -2307,6 +2344,14 @@
     })
 });
 </code></pre>
+<h2 id="known-problems">Known Problems</h2>
+<ul>
+<li><a href="https://www.npmjs.com/package/expo-sqlite" target="_blank">expo-sqlite</a> cannot be used on android (but it works on iOS) because it uses and <a href="https://expo.canny.io/feature-requests/p/expo-sqlite-ship-newer-sqlite3-version-on-android" target="_blank">outdated SQLite version</a></li>
+</ul>
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="react-native-database.html">React Native Databases</a></li>
+</ul>
 
                                 
                                 </section>
@@ -2350,7 +2395,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"RxStorage SQLite","level":"1.19.7","depth":2,"next":{"title":"RxStorage FoundationDB","level":"1.19.8","depth":2,"path":"rx-storage-foundationdb.md","ref":"./rx-storage-foundationdb.md","articles":[]},"previous":{"title":"RxStorage IndexedDB","level":"1.19.6","depth":2,"path":"rx-storage-indexeddb.md","ref":"./rx-storage-indexeddb.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","github","custom-favicon","-sharing","expandable-chapters","scripts"],"root":".","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/pubkey/rxdb"},"scripts":{"files":["./analytics.js","./next-button.js"]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":"./files/logo/icon.ico","custom-favicon":{},"edit-link":{"label":"Edit This Page","base":"https://github.com/pubkey/rxdb/tree/master/docs-src"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"RxDB - Documentation","links":{"sidebar":{"&#x2190; Home ":"/","Follow @twitter ":"https://twitter.com/intent/user?screen_name=rxdbjs","Chat @discord ":"https://discord.gg/tqt9ZttJfD","Star @github ":"https://github.com/pubkey/rxdb","Donate @github ":"https://github.com/sponsors/pubkey"}},"gitbook":"3.2.3"},"file":{"path":"rx-storage-sqlite.md","mtime":"","type":"markdown"},"gitbook":{"version":"3.2.3","time":""},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"RxStorage SQLite","level":"1.19.7","depth":2,"next":{"title":"RxStorage FoundationDB","level":"1.19.8","depth":2,"path":"rx-storage-foundationdb.md","ref":"./rx-storage-foundationdb.md","articles":[]},"previous":{"title":"RxStorage IndexedDB","level":"1.19.6","depth":2,"path":"rx-storage-indexeddb.md","ref":"./rx-storage-indexeddb.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","github","custom-favicon","-sharing","expandable-chapters","scripts"],"root":".","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/pubkey/rxdb"},"scripts":{"files":["./analytics.js","./next-button.js"]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":"./files/logo/icon.ico","custom-favicon":{},"edit-link":{"label":"Edit This Page","base":"https://github.com/pubkey/rxdb/tree/master/docs-src"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"RxDB - JavaScript Database","links":{"sidebar":{"RxDB":"/","Follow @twitter ":"https://twitter.com/intent/user?screen_name=rxdbjs","Chat @discord ":"https://discord.gg/tqt9ZttJfD","Star @github ":"https://github.com/pubkey/rxdb","Donate @github ":"https://github.com/sponsors/pubkey"}},"gitbook":"3.2.3"},"file":{"path":"rx-storage-sqlite.md","mtime":"","type":"markdown"},"gitbook":{"version":"3.2.3","time":""},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

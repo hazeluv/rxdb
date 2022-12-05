@@ -1,6 +1,8 @@
 {
   "name": "rxdb-example-electron",
   "main": "main.js",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
     "preinstall": "npm run preinstall:rxdb",
     "preinstall:rxdb": "(cd ../../ && npx yarn@1.13.0 pack ../../ --filename ./examples/electron/rxdb-local.tgz)",
@@ -9,7 +11,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "electron": "21.3.1",
+    "electron": "21.3.3",
     "rxdb": "file:rxdb-local.tgz",
     "rxjs": "7.5.7"
   },

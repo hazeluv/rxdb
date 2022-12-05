@@ -12,9 +12,12 @@ This storage is based on [SQLite](https://www.sqlite.org/index.html) and is made
 
 - It is part of [RxDB Premium](./premium.md)
 - At the moment it is not possible to use regex queries with the SQLite RxStorage.
-- Requires at least SQLite version `3.38.0` (2022-02-22).
 
-## Usage (with Node.js SQLite)
+### Requirements
+
+The SQlite RxStorage works on SQLite libraries that use SQLite in version `3.38.0` or higher, because it uses the [SQLite JSON](https://www.sqlite.org/json1.html) methods like `JSON_EXTRACT`. If you get an error like `[Error: no such function: JSON_EXTRACT (code 1 SQLITE_ERROR[1])`, you might have a too old version of SQLite.
+
+## Usage with **Node.js SQLite**
 
 ```ts
 import {
@@ -47,11 +50,35 @@ const myRxDatabase = await createRxDatabase({
 });
 ```
 
+## Usage with **React Native**
+
+1. Install the [react-native-quick-sqlite npm module](https://www.npmjs.com/package/react-native-quick-sqlite)
+2. Import `getSQLiteBasicsQuickSQLite` from the SQLite plugin and use it to create a [RxDatabase](./rx-database.md):
+
+```ts
+import {
+    createRxDatabase
+} from 'rxdb';
+import {
+    getRxStorageSQLite,
+    getSQLiteBasicsQuickSQLite
+} from 'rxdb-premium/plugins/sqlite';
+import { openDatabase } from 'react-native-quick-sqlite';
+
+// create database
+const myRxDatabase = await createRxDatabase({
+    name: 'exampledb',
+    multiInstance: false, // <- Set multiInstance to false when using RxDB in React Native
+    storage: getRxStorageSQLite({
+        sqliteBasics: getSQLiteBasicsQuickSQLite(openDatabase)
+    })
+});
+```
 
 
-## Usage (with SQLite Capacitor)
+## Usage with **SQLite Capacitor**
 
-1. Install the [sqlite capacitor plugin](https://github.com/capacitor-community/sqlite)
+1. Install the [sqlite capacitor npm module](https://github.com/capacitor-community/sqlite)
 2. Add the iOS database location to your capacitor config
 
 ```json
@@ -103,3 +130,10 @@ const myRxDatabase = await createRxDatabase({
 ```
 
 
+## Known Problems
+
+- [expo-sqlite](https://www.npmjs.com/package/expo-sqlite) cannot be used on android (but it works on iOS) because it uses and [outdated SQLite version](https://expo.canny.io/feature-requests/p/expo-sqlite-ship-newer-sqlite3-version-on-android)
+
+
+## Related
+- [React Native Databases](./react-native-database.md)

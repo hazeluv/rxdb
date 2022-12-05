@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Replication CouchDB (new) · RxDB - Documentation</title>
+        <title>Replication CouchDB (new) · RxDB - JavaScript Database</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -91,7 +91,7 @@
     
         
         <li>
-            <a href="/" target="_blank" class="custom-link">&#x2190; Home </a>
+            <a href="/" target="_blank" class="custom-link">RxDB</a>
         </li>
     
         
@@ -1705,7 +1705,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.20.5" data-path="replication-couchdb.html">
+        <li class="chapter " data-level="1.20.5" data-path="replication-firestore.html">
+            
+                <a href="replication-firestore.html">
+            
+                    
+                    Replication Firestore
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.6" data-path="replication-couchdb.html">
             
                 <a href="replication-couchdb.html">
             
@@ -2328,6 +2341,7 @@ addRxPlugin(RxDBReplicationCouchDBNewPlugin);
 <pre><code class="lang-ts">replicationState.fetch = newCustomFetchMethod;
 </code></pre>
 <h2 id="known-problems">Known problems</h2>
+<h3 id="database-missing">Database missing</h3>
 <p>In contrast to PouchDB, this plugin <strong>does NOT</strong> automatically create missing CouchDB databases.
 If your CouchDB server does not have a database yet, you have to create it by yourself by running a <code>PUT</code> request to the database <code>name</code> url:</p>
 <pre><code class="lang-ts"><span class="hljs-comment">// create a &apos;humans&apos; CouchDB database on the server</span>
@@ -2338,6 +2352,16 @@ await fetch(
         method: <span class="hljs-string">&apos;PUT&apos;</span>
     }
 );
+</code></pre>
+<h2 id="react-native">React Native</h2>
+<p>React Native does not have a global <code>fetch</code> method. You have to import fetch method with the <a href="https://www.npmjs.com/package/cross-fetch" target="_blank">cross-fetch</a> package:</p>
+<pre><code class="lang-ts"><span class="hljs-keyword">import</span> crossFetch from <span class="hljs-string">&apos;cross-fetch&apos;</span>;
+<span class="hljs-keyword">const</span> replicationState = collection.syncCouchDBNew({
+    url: <span class="hljs-string">&apos;http://example.com/db/humans&apos;</span>,
+    fetch: crossFetch,
+    pull: {},
+    push: {}
+});
 </code></pre>
 
                                 
@@ -2382,7 +2406,7 @@ await fetch(
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Replication CouchDB (new)","level":"1.20.3","depth":2,"next":{"title":"Replication P2P","level":"1.20.4","depth":2,"path":"replication-p2p.md","ref":"./replication-p2p.md","articles":[]},"previous":{"title":"Replication Websocket","level":"1.20.2","depth":2,"path":"replication-websocket.md","ref":"./replication-websocket.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","github","custom-favicon","-sharing","expandable-chapters","scripts"],"root":".","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/pubkey/rxdb"},"scripts":{"files":["./analytics.js","./next-button.js"]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":"./files/logo/icon.ico","custom-favicon":{},"edit-link":{"label":"Edit This Page","base":"https://github.com/pubkey/rxdb/tree/master/docs-src"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"RxDB - Documentation","links":{"sidebar":{"&#x2190; Home ":"/","Follow @twitter ":"https://twitter.com/intent/user?screen_name=rxdbjs","Chat @discord ":"https://discord.gg/tqt9ZttJfD","Star @github ":"https://github.com/pubkey/rxdb","Donate @github ":"https://github.com/sponsors/pubkey"}},"gitbook":"3.2.3"},"file":{"path":"replication-couchdb-new.md","mtime":"","type":"markdown"},"gitbook":{"version":"3.2.3","time":""},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Replication CouchDB (new)","level":"1.20.3","depth":2,"next":{"title":"Replication P2P","level":"1.20.4","depth":2,"path":"replication-p2p.md","ref":"./replication-p2p.md","articles":[]},"previous":{"title":"Replication Websocket","level":"1.20.2","depth":2,"path":"replication-websocket.md","ref":"./replication-websocket.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","github","custom-favicon","-sharing","expandable-chapters","scripts"],"root":".","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/pubkey/rxdb"},"scripts":{"files":["./analytics.js","./next-button.js"]},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":"./files/logo/icon.ico","custom-favicon":{},"edit-link":{"label":"Edit This Page","base":"https://github.com/pubkey/rxdb/tree/master/docs-src"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"RxDB - JavaScript Database","links":{"sidebar":{"RxDB":"/","Follow @twitter ":"https://twitter.com/intent/user?screen_name=rxdbjs","Chat @discord ":"https://discord.gg/tqt9ZttJfD","Star @github ":"https://github.com/pubkey/rxdb","Donate @github ":"https://github.com/sponsors/pubkey"}},"gitbook":"3.2.3"},"file":{"path":"replication-couchdb-new.md","mtime":"","type":"markdown"},"gitbook":{"version":"3.2.3","time":""},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
